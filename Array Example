@@ -1,0 +1,32 @@
+#include <iostream>
+#include <array>
+#include <variant>
+
+using namespace std;
+
+int main()
+{
+    array<variant<int, double, string>, 4> arr; // an array of variants
+
+    // insert elements into the array
+    arr[0] = 42;
+    arr[1] = 3.14;
+    arr[2] = "hello";
+    arr[3] = 10;
+
+    // print the elements of the array
+    for (int i = 0; i < arr.size(); i++) {
+        if (auto value = get_if<int>(&arr[i])) {
+            cout << *value << " ";
+        } else if (auto value = get_if<double>(&arr[i])) {
+            cout << *value << " ";
+        } else if (auto value = get_if<string>(&arr[i])) {
+            cout << *value << " ";
+        } else {
+            cout << "unknown type ";
+        }
+    }
+    cout << endl;
+
+    return 0;
+}
