@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <variant>
+
+using namespace std;
+
+int main()
+{
+    vector<vector<variant<int, double, string>>> matrix; // a vector matrix of variants
+
+    // insert rows into the matrix
+    matrix.push_back({1, 2, 3});
+    matrix.push_back({4.0, 5.0, 6.0});
+    matrix.push_back({"seven", "eight", "nine"});
+
+    // insert a bool value into the first row of the matrix
+    matrix[0].push_back(true);
+
+    // print the elements of the matrix
+    for (int i = 0; i < matrix.size(); i++) {
+        for (int j = 0; j < matrix[i].size(); j++) {
+            if (auto value = get_if<int>(&matrix[i][j])) {
+                cout << *value << " ";
+            } else if (auto value = get_if<double>(&matrix[i][j])) {
+                cout << *value << " ";
+            } else if (auto value = get_if<string>(&matrix[i][j])) {
+                cout << *value << " ";
+            } else {
+                cout << "unknown type ";
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
